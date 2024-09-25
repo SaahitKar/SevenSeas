@@ -1,0 +1,286 @@
+import time
+from collections import namedtuple
+import requests
+import websocket
+from twelvedata import TDClient
+import json
+
+# Initialize client - apikey parameter is requiered
+td = TDClient(apikey="ece0867f7f864c78aca8f03754a1a788")
+stock_id = set(line.strip() for line in open('StockID.txt'))
+indicator_id = set(line.strip() for line in open('Tech.txt'))
+Transaction = namedtuple('Transaction', 'type time timezone symbol shares stock_price')
+transactions = []
+user_shares = dict()
+
+
+def is_float(test):
+    try:
+        float(test)
+        return True
+    except ValueError:
+        return False
+
+
+def buy(parameters):
+    params = parameters.split(" ")
+    symbol = ""
+    num_of_shares = 0
+    stat_operator = ""
+    stat_parameter = 0
+    stat_id = ""
+
+    if stock_id.__contains__(params[1]):
+        symbol = params[1]
+    else:
+        print("Error invalid stock name")
+
+    if is_float(params[2]):
+        num_of_shares = params[2]
+    if params[3] == '+' or params[3] == '-':
+        stat_operator = params[3]
+    if is_float(params[4]):
+        stat_parameter = float(params[4])
+    if indicator_id.__contains__(params[5]):
+        stat_id = params[5]
+    else:
+        print("Error invalid Indicator")
+    ts = td.time_series(
+        symbol=symbol,
+        interval="1min",
+        outputsize=1,
+        timezone="America/New_York",
+    )
+    raw_data = (ts.as_json())[0]
+    data = json.loads(json.dumps(raw_data))
+    indicator_value = data['open']
+    if stat_id != 'PRICE':
+        URL = "https://api.twelvedata.com/"
+        URL += stat_id.lower() + "?"
+        URL += "symbol=" + symbol.lower()
+        URL += "&interval=1min&outputsize=1&apikey=b9beb6772cbf4730b34c6b3bd47d6b61"
+        print(URL)
+        r = requests.get(url=URL)
+        technical_indicator_data = r.json()
+        indicator_value = technical_indicator_data['values'][0][stat_id.lower()]
+
+    transaction = Transaction('BUY', data['datetime'], "EST", symbol, num_of_shares, float(data['open']))
+    buy_shares(indicator_value, num_of_shares, stat_operator, stat_parameter, symbol, transaction)
+
+
+def buyif(parameters):
+    params = parameters.split(" ")
+    symbol = ""
+    num_of_shares = 0
+    stat_operator = ""
+    stat_parameter = 0
+    stat_id = ""
+    share_operator = 0
+    share_parameter = 0
+    if stock_id.__contains__(params[1]):
+        symbol = params[1]
+    else:
+        print("Error invalid stock name")
+
+    if is_float(params[2]):
+        num_of_shares = params[2]
+    if params[3] == '+' or params[3] == '-':
+        stat_operator = params[3]
+    if is_float(params[4]):
+        stat_parameter = float(params[4])
+    if indicator_id.__contains__(params[5]):
+        stat_id = params[5]
+    if params[6] == '+' or params[6] == '-':
+        share_operator = params[6]
+    if is_float(params[7]):
+        share_parameter = float(params[7])
+    ts = td.time_series(
+        symbol=symbol,
+        interval="1min",
+        outputsize=1,
+        timezone="America/New_York",
+    )
+    raw_data = (ts.as_json())[0]
+    data = json.loads(json.dumps(raw_data))
+    indicator_value = data['open']
+    if stat_id != 'PRICE':
+        URL = "https://api.twelvedata.com/"
+        URL += stat_id.lower() + "?"
+        URL += "symbol=" + symbol.lower()
+        URL += "&interval=1min&outputsize=1&apikey=ece0867f7f864c78aca8f03754a1a788"
+        print(URL)
+        r = requests.get(url=URL)
+        technical_indicator_data = r.json()
+        indicator_value = technical_indicator_data['values'][0][stat_id.lower()]
+
+    transaction = Transaction('BUY', data['datetime'], "EST", symbol, num_of_shares, float(data['open']))
+    if not (symbol in user_shares):
+        user_shares[symbol] = 0
+    if share_operator == '+':
+        if user_shares[symbol] >= share_parameter:
+            buy_shares(indicator_value, num_of_shares, stat_operator, stat_parameter, symbol, transaction)
+    if share_operator == '-':
+        if user_shares[symbol] <= share_parameter:
+            buy_shares(indicator_value, num_of_shares, stat_operator, stat_parameter, symbol, transaction)
+
+
+def buy_shares(indicator_value, num_of_shares, stat_operator, stat_parameter, symbol, transaction):
+    if stat_operator == '+':
+        if float(indicator_value) >= stat_parameter:
+            transactions.append(transaction)
+            if symbol in user_shares:
+                user_shares[symbol] += float(num_of_shares)
+            else:
+                user_shares[symbol] = float(num_of_shares)
+    if stat_operator == '-':
+        if float(indicator_value) <= stat_parameter:
+            transactions.append(transaction)
+            if symbol in user_shares:
+                user_shares[symbol] += float(num_of_shares)
+            else:
+                user_shares[symbol] = float(num_of_shares)
+    time.sleep(0)
+
+
+def sell(parameters):
+    params = parameters.split(" ")
+    symbol = ""
+    num_of_shares = 0
+    stat_operator = ""
+    stat_parameter = 0
+    stat_id = ""
+    if stock_id.__contains__(params[1]):
+        symbol = params[1]
+    else:
+        print("Error invalid stock name")
+
+    if is_float(params[2]):
+        num_of_shares = params[2]
+    if params[3] == '+' or params[3] == '-':
+        stat_operator = params[3]
+    if is_float(params[4]):
+        stat_parameter = float(params[4])
+    if indicator_id.__contains__(params[5]):
+        stat_id = params[5]
+    else:
+        print("Error invalid Indicator")
+    ts = td.time_series(
+        symbol=symbol,
+        interval="1min",
+        outputsize=1,
+        timezone="America/New_York",
+    )
+    raw_data = (ts.as_json())[0]
+    data = json.loads(json.dumps(raw_data))
+    indicator_value = data['open']
+    if stat_id != 'PRICE':
+        URL = "https://api.twelvedata.com/"
+        URL += stat_id.lower() + "?"
+        URL += "symbol=" + symbol.lower()
+        URL += "&interval=1min&outputsize=1&apikey=b9beb6772cbf4730b34c6b3bd47d6b61"
+        print(URL)
+        r = requests.get(url=URL)
+        technical_indicator_data = r.json()
+        indicator_value = technical_indicator_data['values'][0][stat_id.lower()]
+
+    transaction = Transaction('SELL', data['datetime'], "EST", symbol, num_of_shares, float(data['open']))
+    sell_shares(indicator_value, num_of_shares, stat_operator, stat_parameter, symbol, transaction)
+
+
+def sellif(parameters):
+    params = parameters.split(" ")
+    symbol = ""
+    num_of_shares = 0
+    stat_operator = ""
+    stat_parameter = 0
+    stat_id = ""
+    share_operator = 0
+    share_parameter = 0
+    if stock_id.__contains__(params[1]):
+        symbol = params[1]
+    else:
+        print("Error invalid stock name")
+
+    if is_float(params[2]):
+        num_of_shares = params[2]
+    if params[3] == '+' or params[3] == '-':
+        stat_operator = params[3]
+    if is_float(params[4]):
+        stat_parameter = float(params[4])
+    if indicator_id.__contains__(params[5]):
+        stat_id = params[5]
+    if params[6] == '+' or params[6] == '-':
+        share_operator = params[6]
+    if is_float(params[7]):
+        share_parameter = float(params[7])
+    else:
+        print("Error invalid Indicator")
+    ts = td.time_series(
+        symbol=symbol,
+        interval="1min",
+        outputsize=1,
+        timezone="America/New_York",
+    )
+    raw_data = (ts.as_json())[0]
+    data = json.loads(json.dumps(raw_data))
+    indicator_value = data['open']
+    if stat_id != 'PRICE':
+        URL = "https://api.twelvedata.com/"
+        URL += stat_id.lower() + "?"
+        URL += "symbol=" + symbol.lower()
+        URL += "&interval=1min&outputsize=1&apikey=b9beb6772cbf4730b34c6b3bd47d6b61"
+        print(URL)
+        r = requests.get(url=URL)
+        technical_indicator_data = r.json()
+        indicator_value = technical_indicator_data['values'][0][stat_id.lower()]
+
+    transaction = Transaction('SELL', data['datetime'], "EST", symbol, num_of_shares, float(data['open']))
+
+    if not (symbol in user_shares):
+        user_shares[symbol] = 0
+    if share_operator == '+':
+        if user_shares[symbol] >= share_parameter:
+            sell_shares(indicator_value, num_of_shares, stat_operator, stat_parameter, symbol, transaction)
+    if share_operator == '-':
+        if user_shares[symbol] <= share_parameter:
+            sell_shares(indicator_value, num_of_shares, stat_operator, stat_parameter, symbol, transaction)
+
+
+def sell_shares(indicator_value, num_of_shares, stat_operator, stat_parameter, symbol, transaction):
+    if stat_operator == '+':
+        if float(indicator_value) > stat_parameter:
+            transactions.append(transaction)
+            if symbol in user_shares:
+                user_shares[symbol] -= float(num_of_shares)
+    if stat_operator == '-':
+        if float(indicator_value) < stat_parameter:
+            transactions.append(transaction)
+            if symbol in user_shares:
+                user_shares[symbol] -= float(num_of_shares)
+    time.sleep(0)
+buyif("buyif AAPL 12 + 10 PRICE - 5")
+sell("sell AAPL 10 + 10 PRICE")
+buy("buy AAPL 12 - 50 PRICE")
+sell("sell AAPL 1 + -.5 MACD")
+ERROR
+log = "TIME TYPE STOCK SHARES PRICE\n"
+cumulative_report = "Summary of Simulation\n"
+net_account_value = 0
+for transaction in transactions:
+    log += transaction[1] + " " + transaction[2] + ": " + transaction[0] + " " + transaction[3] + " " + str(transaction[
+        4]) + " " + str(transaction[5]) + "\n"
+print(log)
+profit = abs(0-net_account_value)
+for share in user_shares:
+    ts = td.time_series(
+        symbol=share,
+        interval="1min",
+        outputsize=1,
+        timezone="America/New_York",
+    )
+    raw_data = (ts.as_json())[0]
+    data = json.loads(json.dumps(raw_data))
+    price = data['open']
+    profit -= float(user_shares[share])*float(price)
+cumulative_report += str(user_shares) + "\n" + "Total profit: " + "{:.4f}".format(profit)
+print(cumulative_report)

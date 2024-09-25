@@ -1,0 +1,31 @@
+@import url('../general/font.css');
+@import url('../general/variable.css');
+#success-steps {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 30px 5%;
+}
+.success-step {
+    display: inline-block;
+    max-width: 30%;
+    margin: 15px 40px;
+    padding: 15px 30px 5px;
+    border-radius: 9px;
+    font-family: 'PirateWriter';
+    background-color: var(--black1t);
+    transition: background-color 0.4s;
+}
+.success-step-title {
+    font-size: 45pt;
+    color: var(--white1);
+}
+.success-step-desc {
+    font-size: 25pt;
+    word-wrap: normal;
+    color: var(--white0);
+}
+.success-step:hover {
+    background-color: var(--black2t);
+    transition: background-color 0.4s;
+}

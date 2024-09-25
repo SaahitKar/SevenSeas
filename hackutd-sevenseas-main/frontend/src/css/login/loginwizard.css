@@ -1,0 +1,58 @@
+@import url('../general/font.css');
+@import url('../general/variable.css');
+#login-wizard {
+    margin: 105px 20%;
+    text-align: center;
+    font-family: 'PirateWriter';
+    font-size: 45pt;
+    color: var(--white0);
+    background-color: var(--black1t);
+    border-radius: 15px;
+}
+#login-title {
+    font-size: 65pt;
+}
+#login-status {
+    font-size: 25pt;
+    color: var(--red0);
+}
+#login-buttons {
+    display: inline;
+    width: 30%;
+    text-align: center;
+}
+.wizard-button {
+    display: inline-block;
+    text-align: center;
+    margin: 15px;
+    padding: 5px 10px;
+    font-size: 35pt;
+    font-family: 'PirateWriter';
+    background-color: transparent;
+    color: var(--white0);
+    border-radius: 7px;
+    transition: color 0.2s, background-color 0.2s;
+}
+.wizard-button:hover {
+    color: var(--blue1);
+    background-color: var(--black2t);
+    cursor: pointer;
+    transition: color 0.2s, background-color 0.2s;
+}
+.login-field {
+    margin: 30px 0;
+}
+.login-field-header {
+    clear: both;
+    margin-bottom: -20px;
+}
+.login-field-textfield {
+    clear: both;
+    font-family: 'PirateWriter';
+    text-align: center;
+    width: 40%;
+    font-size: 0.3em;
+    outline: none;
+    border-color: transparent;
+    border-radius: 6px;
+}

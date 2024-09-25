@@ -1,0 +1,30 @@
+@import url('./general/variable.css');
+@import url('./general/font.css');
+@import url('./general/highlight.css');
+#home-page {
+
+}
+#home-welcome {
+    margin: 30px 10%;
+    font-family: 'BlackPearl';
+    font-size: 50px;
+    word-wrap: normal;
+    color: var(--white0);
+    text-align: center;
+}
+#home-mission {
+    margin: 30px 20%;
+    padding: 30px;
+    font-family: 'Primitive';
+    font-size: 35px;
+    word-wrap: normal;
+    color: var(--white1);
+    background-color: var(--black1t);
+    border-radius: 7px;
+    text-align: center;
+    transition: color 1s, background-color 0.4s;
+}
+#home-mission:hover {
+    background-color: var(--black2t);
+    transition: background-color 0.4s;
+}

@@ -1,0 +1,35 @@
+@import url('../general/variable.css');
+@import url('../general/font.css');
+#footer {
+    align-self: center;
+    clear: both;
+    margin: 5px 10%;
+    background-color: var(--black2t);
+    border-radius: 7px;
+}
+#foot {
+    display: flex;
+    justify-content: center;
+    list-style: none;
+    padding: 0;
+    margin: 5px;
+}
+.foot-item {
+    display: inline-block;
+    margin: 5px 30px 0px;
+    float: none;
+    color: var(--white0);
+    font-family: 'BlackRose';
+    font-size: 25pt;
+    transition: 0.2s;
+}
+.foot-item:hover {
+    color: var(--blue1);
+    cursor: pointer;
+    transition: 0.2s;
+}
+.fa-github, .fa-quinscape, .fa-layer-group {
+    width: 35px;
+    height: 35px;
+    color: (--white0);
+}

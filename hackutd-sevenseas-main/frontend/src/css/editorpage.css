@@ -1,0 +1,140 @@
+@import url('./general/font.css');
+@import url('./general/variable.css');
+#editor-page {
+
+}
+#editor-container {
+    margin: 50px 7%;
+    padding: 10px;
+    background-color: var(--black1t);
+    border-radius: 9px;
+}
+#editor-header {
+    margin: 10px auto;
+    font-family: 'PirateWriter';
+    font-size: 70pt;
+    color: var(--white0);
+    width: fit-content;
+}
+#script-name {
+    margin: 40px auto 0px;
+    font-family: 'PirateWriter';
+    font-size: 30pt;
+    color: var(--white0);
+    width: fit-content;
+}
+#editor {
+    
+}
+#script-description {
+    margin: 40px auto 0px;
+    font-family: 'PirateWriter';
+    font-size: 30pt;
+    color: var(--white0);
+    width: fit-content;
+}
+#script-options-header {
+    margin: 40px auto 0px;
+    font-family: 'PirateWriter';
+    font-size: 30pt;
+    color: var(--white0);
+    width: fit-content;
+}
+#script-options {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 10px auto;
+    justify-content: center;
+}
+.script-option {
+    margin: 10px 100px;
+    padding: 5px 15px;
+    font-family: 'PirateWriter';
+    font-size: 40pt;
+    border-radius: 7px;
+    background-color: var(--black1t);
+}
+.script-option-title {
+    margin: 0 auto;
+    font-family: 'PirateWriter';
+    font-size: 30pt;
+    color: var(--white0);
+    width: fit-content;
+}
+.script-option-field {
+    display: block;
+    outline: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 15pt;
+    color: var(--white0);
+    width: 90%;
+    background-color: var(--black2t);
+    border-radius: 7px;
+    border-color: transparent;
+    resize: none;
+    margin: auto;
+    height: 1.2em;
+}
+#editor-buttons {
+    display: flex;
+    flex-wrap: wrap;
+    flex-direction: row;
+    margin: 10px auto;
+    justify-content: center;
+}
+.text-field {
+    display: block;
+    outline: none;
+    font-family: 'Courier New', Courier, monospace;
+    font-size: 20pt;
+    color: var(--white0);
+    width: 90%;
+    background-color: var(--black2t);
+    border-radius: 7px;
+    border-color: transparent;
+    resize: none;
+    margin: 15px auto;
+    padding: 15px;
+    height: 20em;
+}
+.text-field::-webkit-scrollbar {
+    width: 10px;
+}
+.text-field::-webkit-scrollbar-track {
+    background-color: var(--blue0);
+}
+.text-field::-webkit-scrollbar-thumb {
+    background-color: var(--purple1);
+    border-radius: 20px;
+    transition: background-color 0.4s;
+}
+.text-field::-webkit-scrollbar-thumb:hover {
+    background-color: var(--purple0);
+    transition: background-color 0.4s;
+}
+#description {
+    height: 5em;
+}
+.editor-button {
+    margin: 10px 150px;
+    padding: 5px 15px;
+    font-family: 'PirateWriter';
+    font-size: 40pt;
+    color: var(--white0);
+    border-radius: 7px;
+    transition: color 0.4s, background-color 0.4s;
+}
+.editor-button:hover {
+    background-color: var(--black2t);
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+#save-button:hover {
+    color: var(--green0);
+    transition: color 0.4s, background-color 0.4s;
+}
+#delete-button:hover {
+    color: var(--red0);
+    transition: color 0.4s, background-color 0.4s;
+}

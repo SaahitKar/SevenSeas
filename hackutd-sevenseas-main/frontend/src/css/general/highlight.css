@@ -1,0 +1,5 @@
+@import url('./variable.css');
+.text-highlight-0:hover {
+    color: var(--blue1);
+    transition: color 0.2s;
+}

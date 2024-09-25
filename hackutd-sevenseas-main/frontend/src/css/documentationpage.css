@@ -1,0 +1,59 @@
+@import url('./general/font.css');
+@import url('./general/variable.css');
+#documentation {
+    width: 80%;
+    margin: 50px auto;
+    padding: 15px;
+    background-color: var(--black1t);
+    border-radius: 9px;
+}
+#documentation-title {
+    font-family: 'PirateWriter';
+    font-size: 60pt;
+    color: var(--white0);
+    width: fit-content;
+    margin: 10px auto;
+}
+#doc-entries {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+}
+.doc-entry {
+    font-family: 'PirateWriter';
+    word-wrap: normal;
+    color: var(--white0);
+    width: fit-content;
+    max-width: 30%;
+    margin: 10px 40px;
+    padding: 0px 10px;
+    background-color: var(--black1t);
+    border-radius: 9px;
+    text-align: center;
+    transition: background-color 0.4s;
+}
+.doc-entry-title {
+    font-size: 45pt;
+}
+.doc-entry-desc {
+    font-size: 30pt;
+    line-height: 0.9em;
+    transition: color 0.4s;
+}
+.doc-entry-example {
+    font-size: 20pt;
+    font-family: 'Courier New', Courier, monospace;
+    background-color: var(--black2t);
+    border-radius: 7px;
+    color: var(--gray1);
+    margin: 10px;
+    transition: color 0.4s;
+}
+.doc-entry:hover {
+    background-color: var(--black2t);
+    transition: background-color 0.4s;
+}
+.doc-entry:hover .doc-entry-title {
+    color: var(--blue1);
+    transition: color 0.4s;
+}

@@ -1,0 +1,89 @@
+@import url('./general/font.css');
+@import url('./general/variable.css');
+#account-page {
+
+}
+#account-info {
+    background-color: var(--black1t);
+    border-radius: 15px;
+    margin: 80px 20%;
+    padding: 5px;
+}
+#account-title {
+    width: fit-content;
+    margin: 0px auto;
+    font-family: 'PirateWriter';
+    font-size: 70pt;
+    color: var(--white0);
+}
+#scripts-title:hover {
+    color: var(--blue1);
+    cursor: pointer;
+    transition: color 0.4s;
+}
+#account-scripts {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    width: 80%;
+    margin: 0px 10%;
+}
+#account-logout {
+    border-radius: 9px;
+    padding: 0px 15px;
+    width: fit-content;
+    margin: 70px auto 5px;
+    font-family: 'PirateWriter';
+    font-size: 50pt;
+    color: var(--white0);
+    transition: 0.4s;
+}
+#account-logout:hover {
+    color: var(--red0);
+    background-color: var(--black2t);
+    cursor: pointer;
+    transition: color 0.4s, background-color 0.4s;
+}
+.account-field-title {
+    width: fit-content;
+    margin: 0px auto;
+    font-family: 'PirateWriter';
+    font-size: 45pt;
+    color: var(--white0);
+    transition: color 0.4s;
+}
+.account-field {
+    width: fit-content;
+    margin: -15px auto 0px;
+    font-family: 'PirateWriter';
+    font-size: 30pt;
+    color: var(--white0);
+    transition: color 0.4s;
+}
+.account-field:hover {
+    color: var(--blue1);
+    transition: color 0.4s;
+}
+.account-script {
+    padding: 10px 5px;
+    width: fit-content;
+    max-width: 35%;
+    margin: 5px;
+    color: var(--white0);
+    border-radius: 7px;
+    text-align: center;
+    word-wrap: normal;
+    background-color: var(--black1t);
+    transition: background-color 0.4s;
+}
+.account-script:hover {
+    background-color: var(--black2t);
+    cursor: pointer;
+    transition: background-color 0.4s;
+}
+.account-script-name {
+    font-size: 30pt;
+}
+.account-script-description {
+    font-size: 25pt;
+}

@@ -1,0 +1,46 @@
+@import url('../general/variable.css');
+@import url('../general/font.css');
+@import url('../general/keyframe.css');
+#navigation {
+    background-color: var(--black1t);
+    align-self: center;
+    transition: background-color 0.4s;
+}
+#navigation:hover {
+    background-color: var(--black2t);
+    transition: background-color 0.4s;
+}
+#nav-bar {
+    margin: 0;
+    padding: 20px 20px;
+    list-style: none;
+    text-align: center;
+}
+.nav-item {
+    display: inline-block;
+    margin: 3px 50px 0px;
+    float: none;
+    text-align: center;
+    font-family: 'TreasureMap';
+    font-size: 30pt;
+    color: var(--white0);
+    border-radius: 7px;
+    transition: color 0.1s;
+    transition: border 0.1s;
+}
+.nav-item:hover {
+    color: var(--white1);
+    cursor: pointer;
+    transition: 0.1s;
+}
+.nav-item:hover .nav-underline {
+    background-color: var(--white0);
+    width: 100%;
+}
+.nav-underline {
+    height: 3px;
+    background-color: transparent;
+    width: 0%;
+    transition: width 0.2s, background-color 0.5s;
+    margin: 0 auto;
+}
