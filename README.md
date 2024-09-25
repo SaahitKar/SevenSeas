@@ -1,4 +1,4 @@
-The Inspiration
+##The Inspiration
 Stock trading is something that everyone, whether recently or in the past, has wanted to get into. However, fear and frustration are the two main factors that prevent people from pursuing that course. Trading Docks attempts to allay the negative feelings towards day trading by providing users with a FREE online trading algorithm application, built and designed for the average user.
 
 The Function
